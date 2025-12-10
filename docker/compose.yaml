@@ -2,10 +2,13 @@ services:
   ros:
     image: haomingac/gnssfgo:latest
     container_name: gnssfgo
-    # network_mode: host
+    network_mode: host
     privileged: true
     stdin_open: true
     tty: true
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/ttyACM1:/dev/ttyACM1
     volumes:
       - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
       - ${HOME}/.ssh:/root/.ssh
