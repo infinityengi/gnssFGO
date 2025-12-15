@@ -33,3 +33,9 @@
 
 cmake-build-*
 .idea.novatel_oem7_utilities_disabled/
+
+# Data and bag files
+bags/
+*.bag
+*.db3
+*.db
