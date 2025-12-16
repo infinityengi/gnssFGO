@@ -1,0 +1,288 @@
+# Septentrio MODIAC H Configuration for gnssFGO Integration
+# Purpose: Optimize GNSS measurements for real-time factor graph optimization
+# Created: December 10, 2025
+# Hardware: Septentrio MODIAC H receiver
+# Integration: online_fgo + LIO-SAM + Septentrio GNSS driver
+
+# ============================================================================
+# DEVICE CONNECTION SETTINGS
+# ============================================================================
+
+device: "tcp://192.168.3.1:28784"
+# Alternative connection methods:
+# device: "serial:///dev/ttyACM0:921600"   # Serial port fallback
+# device: "udp://192.168.3.1:28784"        # UDP method (advanced)
+
+# ============================================================================
+# MEASUREMENT OUTPUT CONFIGURATION
+# ============================================================================
+
+measurement_rate: 10
+# Description: Output frequency in Hz (1-20 typical)
+# Value: 10 Hz balances real-time performance with data throughput
+# FGO expects: Minimum 1 Hz, optimal 5-20 Hz for online processing
+# Notes: Higher rate = more GNSS measurements for better graph optimization
+#        Septentrio MODIAC H supports up to 20 Hz at 921600 baud serial
+
+use_raf: true
+# Description: Use raw measurements for precise positioning
+# Value: true (enabled for factor graph optimization)
+# Impact: Enables access to raw pseudorange and carrier phase data
+# FGO Benefit: Better error modeling and measurement covariance
+
+publish_imu: true
+# Description: Publish IMU data if available
+# Value: true
+# Note: MODIAC H has optional IMU - set to false if not available
+# FGO Integration: IMU preintegration with GNSS constraints
+
+publish_odometry: true
+# Description: Publish INS-derived odometry
+# Value: true (if MODIAC H INS is available)
+# FGO Integration: Alternative odometry source for factor graph
+
+publish_gnss_fix: true
+# Description: Publish standard NavSatFix messages
+# Value: true
+# FGO Primary: Main input topic for GNSS measurements
+
+# ============================================================================
+# COORDINATE FRAME & TRANSFORMATION SETTINGS
+# ============================================================================
+
+reference_frame: "base_link"
+# Description: Parent frame for all transforms
+# FGO Expectation: Must match FGO config reference frame
+# ROS Convention: Usually "base_link" for robotics applications
+
+gnss_frame: "gnss"
+# Description: Name of GNSS receiver frame
+# Transform: base_link -> gnss (spatial offset from reference)
+# FGO Usage: Leveraging arm - distance from base_link to GNSS antenna
+
+imu_frame: "imu"
+# Description: Name of IMU frame (if available)
+# Transform: base_link -> imu
+# FGO Integration: IMU preintegration constraints
+
+use_ros_axis_orientation: true
+# Description: Use ROS coordinate system (ENU - East-North-Up)
+# Value: true (recommended for ROS compatibility)
+# FGO: East-North-Up coordinates for local navigation frame
+# Alternative: NED (North-East-Down) if false
+
+# ============================================================================
+# GNSS MEASUREMENT CONFIGURATION
+# ============================================================================
+
+multi_antenna: false
+# Description: Enable dual-antenna heading
+# Value: false (single antenna configuration for MODIAC H basic)
+# Note: Set to true if running in dual-antenna RTK mode
+# FGO Impact: Heading constraints if enabled
+
+use_dual_antenna_heading: false
+# Description: Publish dual-antenna heading measurements
+# Value: false
+# Condition: Only applies if multi_antenna: true
+# FGO Enhancement: Adds orientation constraints to factor graph
+
+# ============================================================================
+# ADVANCED SEPTENTRIO DRIVER SETTINGS
+# ============================================================================
+
+stream_device_para: false
+# Description: Stream device parameters from receiver
+# Value: false (disable to reduce overhead)
+# FGO Impact: Minimal - used for diagnostics only
+
+use_sbf_blocks: true
+# Description: Use Septentrio binary format (SBF) blocks
+# Value: true
+# Advantage: More precise measurements than NMEA alone
+# FGO Integration: Higher accuracy raw measurements
+
+sbf_block_types:
+  - "VelSensorFrame"      # Velocity in sensor frame (useful for IMU fusion)
+  - "PVTGeodetic"         # Position/velocity/time (primary measurement)
+  - "ImuSetup"            # IMU calibration parameters (if available)
+  - "GPSNav"              # GPS navigation solution
+  - "DOP"                 # Dilution of precision metrics
+  - "SatVisibility"       # Satellite visibility and geometry
+
+# ============================================================================
+# FGO-SPECIFIC MEASUREMENT TUNING
+# ============================================================================
+# Note: These parameters coordinate driver output for optimal FGO processing
+
+measurement_covariance_scale: 1.0
+# Description: Scaling factor for GNSS measurement covariance
+# Range: 0.5 - 2.0
+# Recommendations:
+#   1.0 = Trust driver's covariance estimates fully
+#   0.5 = Increase measurement weight (trust GNSS more)
+#   2.0 = Decrease measurement weight (be more skeptical)
+# FGO Impact: Higher weight = stronger GNSS constraints in optimization
+# Tuning: Adjust based on comparison with LiDAR drift patterns
+
+use_rtk_corrections: false
+# Description: Enable Real-Time Kinematic corrections
+# Value: false (RTK disabled - standard DGPS mode)
+# Note: Set to true if you have NTRIP server available
+# FGO Impact: RTK provides cm-level accuracy vs. meter-level DGPS
+# Future: Can enable for enhanced accuracy if RTK corrections available
+
+measurement_noise_estimate: "driver"
+# Description: Source of measurement noise/covariance
+# Options: 
+#   "driver"     = Use Septentrio driver's covariance estimates
+#   "fixed"      = Use fixed covariance values (see below)
+#   "empirical"  = Estimate from residuals (advanced)
+# FGO Usage: Controls measurement uncertainty in factor graph
+
+# Fixed covariance values (if measurement_noise_estimate: "fixed")
+fixed_position_noise_east: 2.0      # meters^2 (1σ standard deviation)
+fixed_position_noise_north: 2.0     # meters^2
+fixed_position_noise_up: 5.0        # meters^2 (typically 2.5x horizontal)
+fixed_velocity_noise: 0.1           # (m/s)^2
+
+# ============================================================================
+# SEPTENTRIO RECEIVER CONFIGURATION
+# ============================================================================
+
+receiver_type: "gnss"
+# Description: Receiver mode
+# Options: "gnss", "ins", "gnss_ins"
+# Value: "gnss" (standalone GNSS)
+# Note: Change to "gnss_ins" if INS is available and enabled
+# FGO Integration: INS provides heading/roll/pitch constraints
+
+frame_id: "gnss"
+# Description: ROS frame_id for published messages
+# Must match gnss_frame parameter
+# FGO: Used to identify measurement source in message headers
+
+# ============================================================================
+# MESSAGE PUBLISHING CONFIGURATION
+# ============================================================================
+
+publish_navsatfix: true
+# Description: Publish standard sensor_msgs/NavSatFix
+# Primary ROS Topic: /gnss_fix
+# FGO Usage: May not use this directly (prefers GPSFix extended format)
+
+publish_gpsfix: true
+# Description: Publish extended gps_msgs/GPSFix
+# Primary ROS Topic: /gpsfix
+# FGO Usage: Receives this topic with HDOP/VDOP metrics
+# Note: Driver publishes as /gpsfix (without underscore)
+
+publish_time: true
+# Description: Publish GPS time reference
+# Topic: /time_reference (if supported)
+
+publish_septentrio_custom: true
+# Description: Publish Septentrio-specific message types
+# Topics: /pvtgeodetic, /velsensorframe, etc.
+# FGO Integration: Alternative high-precision measurements
+
+# ============================================================================
+# COORDINATE TRANSFORMATION SETTINGS
+# ============================================================================
+
+map_frame: "map"
+# Description: Global reference frame
+# FGO Configuration: Must match online_fgo's map frame
+# TF Broadcasting: Driver publishes map -> base_link transforms
+
+odom_frame: "odom"
+# Description: Odometry reference frame
+# FGO Integration: Intermediate frame between map and base_link
+# TF Chain: map -> odom -> base_link
+
+# ============================================================================
+# RECEIVER CONFIGURATION (Hardware Settings)
+# ============================================================================
+# Note: These control Septentrio receiver hardware behavior
+# Configure via web interface if firmware changes are needed
+
+antenna_offset_east: 0.0            # meters
+antenna_offset_north: 0.0           # meters
+antenna_offset_up: 0.0              # meters
+# Description: GNSS antenna offset from reference point (base_link)
+# FGO Impact: Leveraging arm calculation for multi-sensor fusion
+# Typical Robot: Range 0.0-0.5m depending on hardware mounting
+
+# ============================================================================
+# PERFORMANCE & RELIABILITY SETTINGS
+# ============================================================================
+
+max_connection_retry_attempts: 5
+# Description: Maximum retry attempts for TCP connection
+# Value: 5 (reasonable balance)
+# FGO Impact: Affects driver recovery during network interruptions
+
+connection_retry_delay_ms: 1000
+# Description: Delay between retry attempts in milliseconds
+# Value: 1000 (1 second)
+# Tuning: Increase if network is unstable, decrease for faster recovery
+
+# ============================================================================
+# DIAGNOSTIC & LOGGING SETTINGS
+# ============================================================================
+
+enable_diagnostics: true
+# Description: Publish diagnostic messages
+# Topic: /diagnostics
+# FGO Integration: Used to monitor receiver health and signal quality
+
+diagnostics_rate: 1.0
+# Description: Diagnostic message publishing frequency (Hz)
+# Value: 1.0 (once per second)
+# Reasonable for monitoring without excessive overhead
+
+log_level: "info"
+# Description: ROS logger verbosity
+# Options: "debug", "info", "warn", "error"
+# Recommendation: "info" for normal operation, "debug" for troubleshooting
+
+# ============================================================================
+# FGO INTEGRATION SUMMARY
+# ============================================================================
+#
+# How this configuration supports online_fgo:
+#
+# 1. TCP Connection (192.168.3.1:28784):
+#    - Provides real-time GNSS data feed
+#    - ~50-100 kbps bandwidth
+#    - 1-5 ms latency typical
+#
+# 2. Measurement Frequency (10 Hz):
+#    - Matches typical online_fgo update rate
+#    - Sufficient for real-time optimization
+#    - Balances accuracy vs. computational load
+#
+# 3. Message Types:
+#    - /gpsfix: Primary measurement input (HDOP/VDOP metrics)
+#    - /pvtgeodetic: High-precision Septentrio native format
+#    - /diagnostics: Health monitoring
+#    - /tf: Coordinate frame transformations
+#
+# 4. Covariance Handling:
+#    - Driver provides full 3x3 position covariance
+#    - Septentrio estimates based on geometry + signal quality
+#    - FGO uses these for optimal measurement weighting
+#
+# 5. Coordinate Frames:
+#    - ENU (East-North-Up) for local navigation
+#    - Transforms broadcast via /tf (base_link -> gnss)
+#    - Integrates with lio_sam and other sensors
+#
+# 6. Error Characteristics:
+#    - Horizontal error: ~3 m (DGPS with 17 satellites)
+#    - Vertical error: ~4 m (typically 1.5x horizontal)
+#    - Bounded by HDOP/VDOP metrics
+#    - FGO leverages with LiDAR for improved accuracy
+#
+# ============================================================================
+

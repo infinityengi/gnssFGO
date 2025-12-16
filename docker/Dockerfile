@@ -36,7 +36,7 @@ RUN cd /usr/local/include \
     && ln -sf /usr/include/eigen3/Eigen Eigen \
     && ln -sf /usr/include/eigen3/unsupported unsupported
 
-# build adapted mapviz
+# build adapted mapviz (limit parallelism to reduce memory pressure and cleanup artifacts)
 RUN mkdir -p /workspace/mapviz_ws/src \
     && cd /workspace/mapviz_ws/src \
     && git clone -b humble-dev https://github.com/rwth-irt/mapviz.git \
@@ -44,23 +44,26 @@ RUN mkdir -p /workspace/mapviz_ws/src \
     && git clone https://github.com/swri-robotics/marti_messages.git \
     && cd /workspace/mapviz_ws \
     && source /opt/ros/humble/setup.bash \
-    && colcon build
+    && colcon build --parallel-workers 2 \
+    && rm -rf src build logs
 
-# build adapted gtsam
+# build adapted gtsam (limit parallelism and clean build dir)
 RUN mkdir -p /workspace/thirdparty \
     && cd /workspace/thirdparty \
     && git clone https://github.com/rwth-irt/gtsam.git \
     && cd /workspace/thirdparty/gtsam \
     && cmake -B build -DGTSAM_USE_SYSTEM_EIGEN=ON \
-    && cmake --build build -j \
-    && cmake -E chdir "build" make install -j
+    && cmake --build build -j2 \
+    && cmake -E chdir "build" make install -j2 \
+    && rm -rf build
 
-# build NumCpp
+# build NumCpp (limit parallelism and clean build dir)
 RUN cd /workspace/thirdparty \ 
     && git clone https://github.com/dpilger26/NumCpp.git \
     && cd /workspace/thirdparty/NumCpp \
     && cmake -B build \ 
-    && cmake --build build --target install 
+    && cmake --build build --target install -j2 \
+    && rm -rf build 
 
 # final update gnssFGO
 RUN echo "source /workspace/mapviz_ws/install/setup.bash" >> ~/.bashrc \

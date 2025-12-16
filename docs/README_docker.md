@@ -2,14 +2,6 @@
 
 This is a dockerfile example based on ROS2 humble for using gnssFGO and adapted mapviz.
 
-## Hardware Setup & Testing
-
-Before running the Docker container, please refer to the [Septentrio Driver Setup & Test Guide](../septentrio_driver_setup_test.md) for:
-- Hardware connectivity verification
-- Serial port configuration
-- Network interface setup
-- Docker integration instructions
-
 ## How to build
 
 1. clone the repository

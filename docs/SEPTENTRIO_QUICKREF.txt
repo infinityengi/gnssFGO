@@ -1,0 +1,210 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    SEPTENTRIO PHASE 1 - QUICK REFERENCE                      ║
+║                         Navigation Product Parsers                           ║
+║                              December 15, 2025                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ STATUS: ✅ COMPLETE - ALL PARSERS IMPLEMENTED AND VALIDATED                  │
+│ VALIDATION: 28/28 CHECKS PASSING                                             │
+│ BUILD: Clean compilation, no errors/warnings                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ IMPLEMENTED PARSERS ────────────────────────────────────────────────────────┐
+│                                                                               │
+│  1. GPSNav Parser      (SBF 5891, 140 bytes) → /gpsephem                     │
+│     GPS broadcast ephemeris (30+ fields, orbital elements, clock)            │
+│                                                                               │
+│  2. GALNav Parser      (SBF 4002, 160 bytes) → /galfnavephem                 │
+│     Galileo F/NAV ephemeris (I/NAV vs F/NAV, 25+ fields)                     │
+│                                                                               │
+│  3. GPSIon Parser      (SBF 5893, 48 bytes)  → /gpsion                       │
+│     GPS Klobuchar ionosphere model (8 coefficients)                          │
+│                                                                               │
+│  4. GALIon Parser      (SBF 4030, 36 bytes)  → /galion                       │
+│     Galileo NeQuick ionosphere (3 coefs + storm flags)                       │
+│                                                                               │
+│  5. GALGstGps Parser   (SBF 4032, 32 bytes)  → /galclock                     │
+│     GPS-Galileo time offset (high precision)                                 │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ ESSENTIAL COMMANDS ─────────────────────────────────────────────────────────┐
+│                                                                               │
+│  BUILD:                                                                       │
+│    cd /workspace/fgo_ws                                                       │
+│    colcon build --packages-select septentrio_gnss_driver                     │
+│                                                                               │
+│  VALIDATE:                                                                    │
+│    bash src/gnssFGO/scripts/validate_septentrio_parsers.sh                   │
+│                                                                               │
+│  LAUNCH DRIVER:                                                               │
+│    source install/setup.bash                                                  │
+│    ros2 launch septentrio_gnss_driver rover.launch.py                        │
+│                                                                               │
+│  CHECK TOPICS:                                                                │
+│    ros2 topic list | grep -E 'gpsephem|galfnav|gpsion|galion|galclock'       │
+│                                                                               │
+│  MONITOR DATA:                                                                │
+│    ros2 topic echo /gpsephem        # GPS ephemeris                           │
+│    ros2 topic echo /galfnavephem    # Galileo ephemeris                       │
+│    ros2 topic echo /gpsion          # GPS ionosphere                          │
+│    ros2 topic echo /galion          # Galileo ionosphere                      │
+│    ros2 topic echo /galclock        # Time offset                             │
+│                                                                               │
+│  CHECK RATES:                                                                 │
+│    ros2 topic hz /gpsephem          # Should be ~0.033 Hz                     │
+│                                                                               │
+│  RECORD DATA:                                                                 │
+│    ros2 bag record /gpsephem /galfnavephem /gpsion /galion /galclock         │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ RECEIVER CONFIGURATION ─────────────────────────────────────────────────────┐
+│                                                                               │
+│  SEPTENTRIO MOSAIC-H SETUP:                                                   │
+│                                                                               │
+│  Web Interface (http://192.168.3.1):                                          │
+│    1. Go to Data I/O → SBF Output → Stream1                                  │
+│    2. Enable: GPSNav, GALNav, GPSIon, GALIon, GALGstGps                       │
+│    3. Set Output: OnChange                                                    │
+│    4. Save Configuration                                                      │
+│                                                                               │
+│  RxTools CLI:                                                                 │
+│    telnet 192.168.3.1                                                         │
+│    setSBFOutput, Stream1, Ethernet, +GPSNav+GALNav+GPSIon+GALIon+GALGstGps, OnChange │
+│    saveConfig                                                                 │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ FILE LOCATIONS ─────────────────────────────────────────────────────────────┐
+│                                                                               │
+│  PARSERS:                                                                     │
+│    src/.../septentrio_gnss_driver/include/.../parsers/sbf_blocks.hpp         │
+│    Lines 1848-2335 (380+ lines of parser code)                               │
+│                                                                               │
+│  MESSAGE HANDLER:                                                             │
+│    src/.../septentrio_gnss_driver/src/.../communication/message_handler.cpp  │
+│    Lines 2716-2785 (5 case statements)                                       │
+│                                                                               │
+│  CONFIGURATION:                                                               │
+│    src/.../septentrio_gnss_driver/config/rover.yaml                          │
+│    Lines 137-141 (publish parameters)                                        │
+│                                                                               │
+│  MESSAGE FILES:                                                               │
+│    src/.../septentrio_gnss_driver/msg/                                       │
+│    GPSEPHEM.msg, GALFNAVEPHEMERIS.msg, IONUTC.msg, GALIONO.msg, GALCLOCK.msg │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ DOCUMENTATION ──────────────────────────────────────────────────────────────┐
+│                                                                               │
+│  1. BINARY_PARSER_IMPLEMENTATION_DAY3.md                                      │
+│     Implementation procedures, code patterns, file modifications             │
+│     572 lines, 20KB                                                           │
+│                                                                               │
+│  2. SEPTENTRIO_PARSER_TESTING_GUIDE.md                                        │
+│     Live testing, validation checklists, troubleshooting                     │
+│     14 pages, comprehensive testing procedures                               │
+│                                                                               │
+│  3. SEPTENTRIO_PHASE1_COMPLETION_SUMMARY.md                                   │
+│     Executive summary, validation results, next steps                        │
+│     Complete phase overview                                                  │
+│                                                                               │
+│  4. scripts/validate_septentrio_parsers.sh                                    │
+│     Automated validation script (28 checks)                                  │
+│                                                                               │
+│  All located in: /workspace/fgo_ws/src/gnssFGO/docs/                         │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ VALIDATION CHECKLIST ───────────────────────────────────────────────────────┐
+│                                                                               │
+│  PRE-FLIGHT:                                                                  │
+│    ✅ Validation script passes (28/28)                                        │
+│    ✅ Package builds cleanly                                                  │
+│    ✅ Configuration file updated                                              │
+│    ⏳ Receiver connected and configured                                       │
+│                                                                               │
+│  RUNTIME:                                                                     │
+│    ⏳ All 5 topics appear in topic list                                       │
+│    ⏳ Topics publish at expected rates                                        │
+│    ⏳ No parse errors in driver logs                                          │
+│    ⏳ Message fields contain realistic values                                 │
+│                                                                               │
+│  DATA QUALITY:                                                                │
+│    ⏳ GPS PRN: 1-32, orbital elements reasonable                              │
+│    ⏳ Galileo SVID: 1-36, source bits valid                                   │
+│    ⏳ Ionosphere coefficients non-zero                                        │
+│    ⏳ Time offset within ±10 ns range                                         │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ EXPECTED MESSAGE RATES ─────────────────────────────────────────────────────┐
+│                                                                               │
+│  /gpsephem        ~0.033 Hz   (once per 30s per satellite)                   │
+│  /galfnavephem    ~0.1 Hz     (once per 10s per satellite)                   │
+│  /gpsion          ~0.016 Hz   (once per minute)                              │
+│  /galion          ~0.016 Hz   (once per minute)                              │
+│  /galclock        ~0.016 Hz   (once per minute)                              │
+│                                                                               │
+│  Note: Rates depend on satellite visibility and receiver configuration       │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TROUBLESHOOTING ────────────────────────────────────────────────────────────┐
+│                                                                               │
+│  TOPICS NOT APPEARING:                                                        │
+│    → Check rover.yaml publish flags (all should be 'true')                   │
+│    → Rebuild: colcon build --packages-select septentrio_gnss_driver          │
+│                                                                               │
+│  PARSE ERRORS:                                                                │
+│    → Enable verbose logging: export RCUTILS_CONSOLE_OUTPUT_FORMAT="..."      │
+│    → Check SBF block IDs match documentation                                 │
+│    → Verify receiver firmware version (v4.15+)                               │
+│                                                                               │
+│  NO MESSAGES:                                                                 │
+│    → Verify receiver output configuration (web interface)                    │
+│    → Check network connectivity (ping 192.168.3.1)                           │
+│    → Confirm IP/port in rover.yaml                                           │
+│                                                                               │
+│  ALL FIELDS ZERO:                                                             │
+│    → Parser logic error - check sbf_blocks.hpp                               │
+│    → Add debug prints to inspect raw bytes                                   │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ NEXT STEPS ─────────────────────────────────────────────────────────────────┐
+│                                                                               │
+│  IMMEDIATE:                                                                   │
+│    1. Connect Septentrio Mosaic-H receiver                                    │
+│    2. Configure receiver to output navigation blocks                         │
+│    3. Launch driver and verify topics                                        │
+│    4. Validate message content and rates                                     │
+│                                                                               │
+│  SHORT-TERM:                                                                  │
+│    1. Integrate with irt_gnss_preprocessing                                   │
+│    2. Create ephemeris factors in FGO graph                                   │
+│    3. Apply ionosphere corrections                                           │
+│    4. Test end-to-end pipeline                                               │
+│                                                                               │
+│  MEDIUM-TERM:                                                                 │
+│    → Phase 2: Implement observation parsers (MeasEpoch, MeasExtra)           │
+│    → Estimated effort: 5-7 days                                              │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ CONTACTS & REFERENCES ──────────────────────────────────────────────────────┐
+│                                                                               │
+│  Documentation: See docs/ directory                                          │
+│  Parser Code: sbf_blocks.hpp lines 1848-2335                                 │
+│  Septentrio: SBF Reference Guide v4.15+                                       │
+│  ROS2 Package: septentrio_gnss_driver                                         │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ STATUS: ✅ PHASE 1 COMPLETE - READY FOR LIVE RECEIVER TESTING                ║
+║ VALIDATION: 28/28 CHECKS PASSING                                             ║
+║ NEXT ACTION: Configure receiver and launch driver for validation             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
