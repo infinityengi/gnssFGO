@@ -1,0 +1,81 @@
+[0.011s] Invoking command in '/workspace/fgo_ws/src/gnssFGO/build/irt_gnss_preprocessing_original': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/workspace/mapviz_ws/install/swri_cli_tools:/opt/ros/humble /usr/bin/cmake --build /workspace/fgo_ws/src/gnssFGO/build/irt_gnss_preprocessing_original -- -j16 -l16
+[0.034s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.129s] -- Found rclcpp: 16.0.15 (/opt/ros/humble/share/rclcpp/cmake)
+[0.146s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.147s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.150s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.156s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.164s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.183s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.184s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.275s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.303s] -- Found rclcpp_components: 16.0.15 (/opt/ros/humble/share/rclcpp_components/cmake)
+[0.313s] -- Found pluginlib: 5.1.2 (/opt/ros/humble/share/pluginlib/cmake)
+[0.326s] -- Found irt_nav_msgs: 0.0.0 (/workspace/fgo_ws/install/irt_nav_msgs/share/irt_nav_msgs/cmake)
+[0.346s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[0.346s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.395s] -- Found novatel_oem7_msgs: 10.0.0 (/workspace/fgo_ws/install/novatel_oem7_msgs/share/novatel_oem7_msgs/cmake)
+[0.402s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.411s] -- Found irt_nav_common: 0.1.0 (/workspace/fgo_ws/install/irt_nav_common/share/irt_nav_common/cmake)
+[0.412s] -- Found ublox_msgs: 2.0.0 (/workspace/fgo_ws/install/ublox_msgs/share/ublox_msgs/cmake)
+[0.434s] -- GTSAM include directory:  /usr/local/lib/cmake/GTSAM/../../../include
+[0.440s] -- GTSAM include directory:  /usr/local/lib/cmake/GTSAM/../../../include
+[0.441s] -- test: subdirs(/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools)
+[0.442s] -- Building Module: DDRTCM_ert_rtw
+[0.442s] -- Building Module: GNSSPreProcessingDualAntenna_ert_rtw
+[0.443s] -- Building Module: GNSSPreProcessingSingleAntenna_ert_rtw
+[0.443s] -- Building Module: novatel
+[0.459s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.508s] -- Added test 'copyright' to check source files copyright and LICENSE
+[0.512s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.513s] -- Configured cppcheck include dirs: /workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/include;/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/include/irt_gnss_preprocessing_original;/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party;$<BUILD_INTERFACE:/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/include>
+[0.513s] -- Configured cppcheck exclude dirs and/or files: 
+[0.517s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[0.517s] -- Configured cpplint exclude dirs and/or files: 
+[0.518s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.519s] -- Added test 'lint_cmake' to check CMake code style
+[0.520s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.524s] -- Added test 'uncrustify' to check C / C++ code style
+[0.524s] -- Configured uncrustify additional arguments: 
+[0.525s] -- Added test 'xmllint' to check XML markup files
+[0.525s] -- Configuring done
+[0.550s] -- Generating done
+[0.557s] -- Build files have been written to: /workspace/fgo_ws/src/gnssFGO/build/irt_gnss_preprocessing_original
+[0.584s] Consolidate compiler generated dependencies of target _novatel
+[0.587s] Consolidate compiler generated dependencies of target _GNSSPreProcessingDualAntenna_ert_rtw
+[0.588s] Consolidate compiler generated dependencies of target _GNSSPreProcessingSingleAntenna_ert_rtw
+[0.589s] Consolidate compiler generated dependencies of target _DDRTCM_ert_rtw
+[0.595s] [  9%] Built target _novatel
+[0.599s] [ 36%] Built target _GNSSPreProcessingDualAntenna_ert_rtw
+[0.601s] [ 65%] Built target _GNSSPreProcessingSingleAntenna_ert_rtw
+[0.604s] [ 92%] Built target _DDRTCM_ert_rtw
+[0.624s] [ 93%] Building CXX object CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/ublox_f9p_preprocessor.cpp.o
+[0.626s] [ 94%] Building CXX object CMakeFiles/irt_gnss_preprocessing_component.dir/src/gnss_preprocesspr_component.cpp.o
+[0.628s] [ 96%] Building CXX object CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/novatel_oem7_preprocessor.cpp.o
+[0.628s] [ 96%] Building CXX object CMakeFiles/irt_gnss_preprocessing_original.dir/src/gnss_utils.cpp.o
+[0.634s] /workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/gnss_preprocesspr_component.cpp:19:10: fatal error: gnss_preprocessor_component.h: No such file or directory
+[0.634s]    19 | #include "gnss_preprocessor_component.h"
+[0.634s]       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0.634s] compilation terminated.
+[0.634s] gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_component.dir/build.make:76: CMakeFiles/irt_gnss_preprocessing_component.dir/src/gnss_preprocesspr_component.cpp.o] Error 1
+[0.634s] gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/irt_gnss_preprocessing_component.dir/all] Error 2
+[0.634s] gmake[1]: *** Waiting for unfinished jobs....
+[0.636s] /workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/impl/novatel_oem7_preprocessor.cpp:18:10: fatal error: impl/novatel_oem7_preprocessor.h: No such file or directory
+[0.636s]    18 | #include "impl/novatel_oem7_preprocessor.h"
+[0.636s]       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0.636s] compilation terminated.
+[0.636s] gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:90: CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/novatel_oem7_preprocessor.cpp.o] Error 1
+[0.636s] gmake[2]: *** Waiting for unfinished jobs....
+[0.636s] /workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/gnss_utils.cpp:23:10: fatal error: gnss_utils.h: No such file or directory
+[0.636s]    23 | #include "gnss_utils.h"
+[0.637s]       |          ^~~~~~~~~~~~~~
+[0.637s] compilation terminated.
+[0.637s] gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:76: CMakeFiles/irt_gnss_preprocessing_original.dir/src/gnss_utils.cpp.o] Error 1
+[0.663s] /workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/impl/ublox_f9p_preprocessor.cpp:20:10: fatal error: impl/ublox_f9p_preprocessor.h: No such file or directory
+[0.663s]    20 | #include "impl/ublox_f9p_preprocessor.h"
+[0.663s]       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0.663s] compilation terminated.
+[0.663s] gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:104: CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/ublox_f9p_preprocessor.cpp.o] Error 1
+[0.664s] gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/irt_gnss_preprocessing_original.dir/all] Error 2
+[0.664s] gmake: *** [Makefile:146: all] Error 2
+[0.665s] Invoked command in '/workspace/fgo_ws/src/gnssFGO/build/irt_gnss_preprocessing_original' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/workspace/mapviz_ws/install/swri_cli_tools:/opt/ros/humble /usr/bin/cmake --build /workspace/fgo_ws/src/gnssFGO/build/irt_gnss_preprocessing_original -- -j16 -l16

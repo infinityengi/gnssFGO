@@ -1,0 +1,3 @@
+source;share/irt_gnss_preprocessing_original/environment/ament_prefix_path.sh
+source;share/irt_gnss_preprocessing_original/environment/library_path.sh
+source;share/irt_gnss_preprocessing_original/environment/path.sh

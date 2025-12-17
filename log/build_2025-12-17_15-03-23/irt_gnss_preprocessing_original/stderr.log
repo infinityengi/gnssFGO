@@ -1,0 +1,25 @@
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/gnss_preprocesspr_component.cpp:19:10: fatal error: gnss_preprocessor_component.h: No such file or directory
+   19 | #include "gnss_preprocessor_component.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_component.dir/build.make:76: CMakeFiles/irt_gnss_preprocessing_component.dir/src/gnss_preprocesspr_component.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/irt_gnss_preprocessing_component.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/impl/novatel_oem7_preprocessor.cpp:18:10: fatal error: impl/novatel_oem7_preprocessor.h: No such file or directory
+   18 | #include "impl/novatel_oem7_preprocessor.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:90: CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/novatel_oem7_preprocessor.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/gnss_utils.cpp:23:10: fatal error: gnss_utils.h: No such file or directory
+   23 | #include "gnss_utils.h"
+      |          ^~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:76: CMakeFiles/irt_gnss_preprocessing_original.dir/src/gnss_utils.cpp.o] Error 1
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/impl/ublox_f9p_preprocessor.cpp:20:10: fatal error: impl/ublox_f9p_preprocessor.h: No such file or directory
+   20 | #include "impl/ublox_f9p_preprocessor.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:104: CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/ublox_f9p_preprocessor.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/irt_gnss_preprocessing_original.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,166 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-6525903954f9c6034a80.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				},
+				{
+					"build" : "third_party/gnss_tools",
+					"jsonFile" : "directory-third_party.gnss_tools-Release-62a2c86b444d53779c60.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.02"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "third_party/gnss_tools",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "irt_gnss_preprocessing_original",
+					"targetIndexes" : 
+					[
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "gnss_tools",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "_DDRTCM_ert_rtw::@32b07bb91e6df6423c0b",
+					"jsonFile" : "target-_DDRTCM_ert_rtw-Release-3eb79a5ad1acacc700fd.json",
+					"name" : "_DDRTCM_ert_rtw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "_GNSSPreProcessingDualAntenna_ert_rtw::@32b07bb91e6df6423c0b",
+					"jsonFile" : "target-_GNSSPreProcessingDualAntenna_ert_rtw-Release-d038a7f044f0069fd397.json",
+					"name" : "_GNSSPreProcessingDualAntenna_ert_rtw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "_GNSSPreProcessingSingleAntenna_ert_rtw::@32b07bb91e6df6423c0b",
+					"jsonFile" : "target-_GNSSPreProcessingSingleAntenna_ert_rtw-Release-e10cef09815450037f58.json",
+					"name" : "_GNSSPreProcessingSingleAntenna_ert_rtw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "_novatel::@32b07bb91e6df6423c0b",
+					"jsonFile" : "target-_novatel-Release-822311212d120a9f2cc3.json",
+					"name" : "_novatel",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "irt_gnss_preprocessing_component::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-irt_gnss_preprocessing_component-Release-eaa408fae649885031ba.json",
+					"name" : "irt_gnss_preprocessing_component",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "irt_gnss_preprocessing_original::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-irt_gnss_preprocessing_original-Release-ad58fd0452423da49da5.json",
+					"name" : "irt_gnss_preprocessing_original",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "irt_gnss_preprocessing_original_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-irt_gnss_preprocessing_original_uninstall-Release-e0ce39b87f150b4d04cf.json",
+					"name" : "irt_gnss_preprocessing_original_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "node_gnss_preprocessing_original::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-node_gnss_preprocessing_original-Release-48d88f3f31bf44760105.json",
+					"name" : "node_gnss_preprocessing_original",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-e3af174da1772208ec81.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/workspace/fgo_ws/src/gnssFGO/build/irt_gnss_preprocessing_original",
+		"source" : "/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

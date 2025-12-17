@@ -1,0 +1,5 @@
+source;share/irt_gnss_preprocessing_original/local_setup.bash
+source;share/irt_gnss_preprocessing_original/local_setup.dsv
+source;share/irt_gnss_preprocessing_original/local_setup.ps1
+source;share/irt_gnss_preprocessing_original/local_setup.sh
+source;share/irt_gnss_preprocessing_original/local_setup.zsh

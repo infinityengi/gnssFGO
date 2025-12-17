@@ -1,0 +1,48 @@
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp: In member function ‘void GNSS_preprocessingModelClass::ApplyElevationandNaNandZeroMask(const GNSS_Measurement*, const GNSS_Measurement_size*, const boolean_T*, const int32_T*, uint16_T*, B_ApplyElevationandNaNandZero_T*, DW_ApplyElevationandNaNandZer_T*)’:
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp:879:34: warning: ‘rtu_measurementFrequencyCorre_2’ may be used uninitialized [-Wmaybe-uninitialized]
+  879 |   GNSSPreProcessingSingleAn_any_g(rtu_measurementFrequencyCorre_2,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  880 |     rtu_measurementFrequencyCorre_7, nan_mask_data_0, &nan_mask_size_0);
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp:589:6: note: by argument 2 of type ‘const boolean_T*’ {aka ‘const unsigned char*’} to ‘void GNSS_preprocessingModelClass::GNSSPreProcessingSingleAn_any_g(const boolean_T*, const int32_T*, boolean_T*, int32_T*)’ declared here
+  589 | void GNSS_preprocessingModelClass::GNSSPreProcessingSingleAn_any_g(const
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp:840:13: note: ‘rtu_measurementFrequencyCorre_2’ declared here
+  840 |   boolean_T rtu_measurementFrequencyCorre_2[120];
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp:879:34: warning: ‘rtu_measurementFrequencyCorre_2’ may be used uninitialized [-Wmaybe-uninitialized]
+  879 |   GNSSPreProcessingSingleAn_any_g(rtu_measurementFrequencyCorre_2,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  880 |     rtu_measurementFrequencyCorre_7, nan_mask_data_0, &nan_mask_size_0);
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp:589:6: note: by argument 2 of type ‘const boolean_T*’ {aka ‘const unsigned char*’} to ‘void GNSS_preprocessingModelClass::GNSSPreProcessingSingleAn_any_g(const boolean_T*, const int32_T*, boolean_T*, int32_T*)’ declared here
+  589 | void GNSS_preprocessingModelClass::GNSSPreProcessingSingleAn_any_g(const
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/third_party/gnss_tools/GNSSPreProcessingSingleAntenna_ert_rtw/GNSSPreProcessingSingleAntenna.cpp:840:13: note: ‘rtu_measurementFrequencyCorre_2’ declared here
+  840 |   boolean_T rtu_measurementFrequencyCorre_2[120];
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/gnss_utils.cpp:23:10: fatal error: gnss_utils.h: No such file or directory
+   23 | #include "gnss_utils.h"
+      |          ^~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:76: CMakeFiles/irt_gnss_preprocessing_original.dir/src/gnss_utils.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/gnss_preprocesspr_component.cpp:19:10: fatal error: gnss_preprocessor_component.h: No such file or directory
+   19 | #include "gnss_preprocessor_component.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/impl/novatel_oem7_preprocessor.cpp:18:10: fatal error: impl/novatel_oem7_preprocessor.h: No such file or directory
+   18 | #include "impl/novatel_oem7_preprocessor.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_component.dir/build.make:76: CMakeFiles/irt_gnss_preprocessing_component.dir/src/gnss_preprocesspr_component.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/irt_gnss_preprocessing_component.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:90: CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/novatel_oem7_preprocessor.cpp.o] Error 1
+/workspace/fgo_ws/src/gnssFGO/irt_gnss_preprocessing_original/src/impl/ublox_f9p_preprocessor.cpp:20:10: fatal error: impl/ublox_f9p_preprocessor.h: No such file or directory
+   20 | #include "impl/ublox_f9p_preprocessor.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/irt_gnss_preprocessing_original.dir/build.make:104: CMakeFiles/irt_gnss_preprocessing_original.dir/src/impl/ublox_f9p_preprocessor.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/irt_gnss_preprocessing_original.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -69,3 +69,90 @@
 - Fixed field name mismatches (Pascal case vs snake_case)
 - Verified plugin registration in XML
 
+
+---
+
+## **Testing and Validation** (December 17, 2025)
+
+### Issue Resolution: Galileo Guard Warnings
+
+**Problem**: "Galileo enabled but no ephemeris yet" warnings appeared despite configuration showing Galileo disabled.
+
+**Root Cause**: Warnings were from OLD LOG FILE when dual-antenna mode (`USE_DUAL_ANTENNA=ON`) was previously enabled. Current configuration uses single-antenna mode (`USE_DUAL_ANTENNA=OFF`).
+
+**Resolution Steps**:
+1. Added parameter loading debug logs to verify config values
+2. Added guard condition debug to single-antenna code path
+3. Rebuilt and tested with fresh logs
+4. Confirmed parameters load correctly: `enable_gnss_merge=0`, `CommonGalileoParameters.enable=0`
+5. Verified guard does NOT fire: `gal_enable=0 merge=0 combined=0`
+
+**Test Result**: ✅ **PASSED** - System working as designed.
+
+**Detailed Investigation**: See `/workspace/fgo_ws/GALILEO_GUARD_DEBUG_NOTES.md`
+
+---
+
+### Comprehensive Integration Test
+
+**Test Document**: `/workspace/fgo_ws/SEPTENTRIO_INTEGRATION_TEST.md`
+
+**Test Coverage**:
+1. ✅ Driver launch and topic publication
+2. ✅ Navigation cache node operation
+3. ✅ Ephemeris data availability
+4. ✅ Preprocessing node initialization
+5. ✅ Parameter loading validation
+6. ✅ Galileo guard behavior (confirms NO warnings)
+7. ✅ GPS preprocessing execution
+8. ✅ Output topic creation
+
+**Quick Test Commands**:
+```bash
+# 1. Start driver
+cd /workspace/fgo_ws && source install/setup.bash
+ros2 launch septentrio_gnss_driver rover.launch.py
+
+# 2. Start nav cache (optional)
+nohup python3 scripts/nav_cache_node.py \
+  --cache-dir /workspace/fgo_ws/nav_cache \
+  --publish-on-load true \
+  --republish-period 5 \
+  > /tmp/nav_cache.log 2>&1 & echo $! > /tmp/nav_cache.pid
+
+# 3. Verify ephemeris topics
+ros2 topic echo /gpsephem --once
+ros2 topic echo /gpsion --once
+
+# 4. Start preprocessing node
+ros2 run irt_gnss_preprocessing node_gnss_preprocessing \
+  --ros-args \
+  --params-file config/gnss_preprocessing_septentrio_test.yaml \
+  --log-level warn
+
+# 5. Verify output (in separate terminal)
+ros2 topic list | grep -E "gnss_obs|PVT|residual"
+```
+
+**Expected Output Indicators**:
+```
+[WARN] [INIT] enable_gnss_merge loaded as: 0                           ✅
+[WARN] [INIT] CommonGalileoParameters.enable loaded as: 0              ✅
+[WARN] [SeptentrioSBFPreProcessor] GPS Ephem CB #1: PRN=10             ✅
+[WARN] [SeptentrioSBFPreProcessor-SINGLE] guard: gal_enable=0 merge=0  ✅
+NO "Galileo enabled but no ephemeris" warnings                          ✅
+```
+
+---
+
+## Summary
+
+The Septentrio Mosaic-H integration is complete and validated. The system successfully:
+- Subscribes to Septentrio SBF format messages
+- Loads configuration parameters correctly
+- Processes GPS measurements (Galileo disabled in current config)
+- Operates in single-antenna mode
+- Handles ephemeris updates appropriately
+- Filters observations based on quality thresholds
+
+For detailed test procedures and troubleshooting, refer to `SEPTENTRIO_INTEGRATION_TEST.md`.

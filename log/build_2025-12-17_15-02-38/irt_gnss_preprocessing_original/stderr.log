@@ -1,0 +1,7 @@
+CMake Error at /opt/ros/humble/share/rclcpp_components/cmake/rclcpp_components_register_nodes.cmake:29 (message):
+  rclcpp_components_register_nodes() first argument 'irt_gnss_preprocessing'
+  is not a target
+Call Stack (most recent call first):
+  CMakeLists.txt:94 (rclcpp_components_register_nodes)
+
+
